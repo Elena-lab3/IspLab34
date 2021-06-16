@@ -1,7 +1,10 @@
 version: "3.7"
 services:
     web:
-    	image: elenabar/blog-web
+        image: elenabar/blog-web
+#        build:
+#            context: ./finalblog
+#            dockerfile: Dockerfile.prod
         command: gunicorn finalblog.wsgi:application --bind 0.0.0.0:8000
         volumes:
             - static_volume:/home/finalblog/web/static
@@ -18,7 +21,8 @@ services:
         env_file:
             - ./.env.prod.db
     nginx:
-	image: elenabar/blog-nginx
+        image: elenabar/blog-nginx
+#        build: ./nginx
         volumes:
             - static_volume:/home/finalblog/web/static
         ports:
@@ -29,4 +33,3 @@ volumes:
     postgres_data:
     static_volume:
     media_volume:
-
